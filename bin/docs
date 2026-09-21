@@ -6,7 +6,7 @@
 require "bundler/setup"
 require "yard"
 
-# YARD のサーバーはプロジェクト内のファイル (config/master.key も含む) を配信するので、
+# YARD のサーバーはプロジェクト内のファイルをそのまま配信するので、
 # 自分のマシンからだけ見られるよう 127.0.0.1 で待ち受けたい。ところが WEBrick 用のアダプタは
 # --bind の値を WEBrick に渡さず、すべてのネットワークで待ち受けてしまう。そこで WEBrick の
 # 設定名 (BindAddress) に入れ直す。

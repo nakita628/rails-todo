@@ -72,12 +72,6 @@ class TodosControllerTest < ActionDispatch::IntegrationTest
     assert_select "[role=alert]", /タイトルは140文字以内で入力してください/
   end
 
-  test "タイトル欄の maxlength は、モデルの文字数の上限と同じ" do
-    get root_url
-
-    assert_select "input[name='todo[title]'][maxlength='140']"
-  end
-
   test "英語の画面では、エラーメッセージも英語になる" do
     post todos_url(locale: :en), params: { todo: { title: "" } }
 

@@ -38,5 +38,9 @@ module RailsTodo
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # ビューのヘルパー (app/helpers/) は使わない。表示のロジックはモデルかビューに置く。
+    # `bin/rails generate` でも作らせない。
+    config.generators.helper = false
   end
 end

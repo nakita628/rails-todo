@@ -2,7 +2,8 @@
 // hekireki が app/models/ に Active Record モデルを、config/locales/models/todo/{ja,en}.yml に
 // モデル名・項目名・エラーメッセージの翻訳を書き出す (どちらも生成物なので編集しない)。
 //
-// `/// @ar.` はモデルに入る Rails のバリデーション、`/// @ar.name` は名前の翻訳で、どちらも 1 行に書く。
+// `/// @ar.` は Rails の書き方そのままでモデルに入る (項目のバリデーション、モデルの scope や normalizes)。
+// `/// @ar.name` は名前の翻訳。どれも 1 行に書く。
 // 翻訳は Rails i18n ガイドのキー (activerecord.models / attributes / errors.models...) に書き出される
 // (https://guides.rubyonrails.org/i18n.html#translations-for-active-record-models)。
 // それ以外の `///` はこのスキーマの中だけの説明で、モデルや ER 図には入らない。
@@ -29,6 +30,7 @@ generator Hekireki-ER {
 /// 一覧はトップページ (`/`) に新しい順で表示する。
 /// @ar.name(ja: "やること", en: "Todo")
 /// @ar.normalizes :title, with: ->(title) { title.strip }
+/// @ar.scope :recent, -> { order(created_at: :desc, id: :desc) }
 model Todo {
   /// ID。cuid2 で、Rails 側でも保存前に採番する。
   id        String   @id @default(cuid(2))

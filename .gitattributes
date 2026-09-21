@@ -1,4 +1,0 @@
-# See https://git-scm.com/docs/gitattributes for more about git attribute files.
-
-config/credentials/*.yml.enc diff=rails_credentials
-config/credentials.yml.enc diff=rails_credentials

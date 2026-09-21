@@ -47,6 +47,14 @@ class TodoTest < ActiveSupport::TestCase
     assert Todo.new(title: " #{"あ" * 140} ").valid?
   end
 
+  test "recent は新しい順に並べる" do
+    # スキーマの `@ar.scope :recent` から生成された scope。fixtures には created_at を書いていないので、ここで作る
+    older = Todo.create!(title: "先に作った", created_at: 2.days.ago)
+    newer = Todo.create!(title: "後で作った", created_at: 1.day.ago)
+
+    assert_equal [ newer, older ], Todo.recent.where(id: [ older.id, newer.id ]).to_a
+  end
+
   # バリデーションメッセージ。
   # 項目名とメッセージは hekireki が生成する config/locales/models/todo/<言語>.yml から、
   # 項目名とメッセージのつなぎ方 (errors.format) は rails-i18n から来る。

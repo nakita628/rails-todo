@@ -1,9 +1,10 @@
-
 # Todo の一覧・追加・編集・削除を扱うコントローラ。
 #
 # 成功したらトップページ (`/`) にリダイレクトし、失敗したら 422 で画面を描き直す、
 # Rails の標準的な CRUD の形にしている。画面の部分更新は Turbo が行うので、
 # コントローラ側で Turbo 専用の処理は書かない。
+#
+# 並び順などのデータの扱いはモデル (Todo.recent) に置き、コントローラはそれを呼ぶだけにする。
 class TodosController < ApplicationController
   before_action :set_todo, only: %i[edit update destroy]
 
@@ -11,7 +12,7 @@ class TodosController < ApplicationController
   #
   # GET /
   def index
-    @todos = recent_todos
+    @todos = Todo.recent
     @todo = Todo.new
   end
 
@@ -26,7 +27,7 @@ class TodosController < ApplicationController
     if @todo.save
       redirect_to root_path, notice: t(".notice")
     else
-      @todos = recent_todos
+      @todos = Todo.recent
       render :index, status: :unprocessable_content
     end
   end
@@ -60,15 +61,6 @@ class TodosController < ApplicationController
   end
 
   private
-
-  # 一覧に並べる Todo。新しい順で、作成日時が同じなら ID で順序を固定する。
-  #
-  # 並び順はスキーマで表せないため、生成されるモデルではなくここに書いている。
-  #
-  # @return [ActiveRecord::Relation<Todo>]
-  def recent_todos
-    Todo.order(created_at: :desc, id: :desc)
-  end
 
   # URL の `:id` から対象の Todo を読み込む。
   #
