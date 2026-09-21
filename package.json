@@ -7,7 +7,7 @@
     "db:reset": "prisma db push --force-reset && prisma generate"
   },
   "devDependencies": {
-    "hekireki": "file:../hekireki/packages/hekireki",
+    "hekireki": "0.31.0",
     "prisma": "8.1.0-dev.7"
   }
 }

@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       hekireki:
-        specifier: file:../hekireki/packages/hekireki
-        version: file:../hekireki/packages/hekireki(redis@6.2.1)
+        specifier: 0.31.0
+        version: 0.31.0(redis@6.2.1)
       prisma:
         specifier: 8.1.0-dev.7
         version: 8.1.0-dev.7(@types/node@26.6.2)(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -769,8 +769,8 @@ packages:
   graphmatch@1.1.1:
     resolution: {integrity: sha512-5ykVn/EXM1hF0XCaWh05VbYvEiOL2lY1kBxZtaYsyvjp7cmWOU1XsAdfQBwClraEofXDT197lFbXOEVMHpvQOg==}
 
-  hekireki@file:../hekireki/packages/hekireki:
-    resolution: {directory: ../hekireki/packages/hekireki, type: directory}
+  hekireki@0.31.0:
+    resolution: {integrity: sha512-W36egr2uSzJmpUu4/wl+LE4Mke0x5O4DK87NLjdvqOIsamYizgrEqsLmsl30mnKhGrQAqcWgM91jpBbqqlbXDQ==}
     hasBin: true
 
   hono@4.13.8:
@@ -1768,7 +1768,7 @@ snapshots:
 
   graphmatch@1.1.1: {}
 
-  hekireki@file:../hekireki/packages/hekireki(redis@6.2.1):
+  hekireki@0.31.0(redis@6.2.1):
     dependencies:
       '@dagrejs/dagre': 3.1.1
       '@effect/platform-node': 4.0.0-rc.116(effect@4.0.0-rc.116)(redis@6.2.1)
