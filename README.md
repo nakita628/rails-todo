@@ -2,6 +2,8 @@
 
 Rails 8.1 で作った最小限の Todo アプリ。
 
+![画面の操作](demo.gif)
+
 - DB: SQLite。スキーマは `prisma/schema.prisma` で管理し、[hekireki](https://github.com/nakita628/hekireki) がモデル・バリデーション・その翻訳・ER 図を生成する
 - 画面: Hotwire (Turbo)、Tailwind CSS
 - 言語: 日本語 (既定) と英語。URL の先頭で切り替わる (`/` と `/ja` は日本語、`/en` は英語)
