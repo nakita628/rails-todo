@@ -1,9 +1,6 @@
 # rails-todo
 
-Rails 8.1 で作った最小限の Todo アプリ。
-
-> [!NOTE]
-> ローカルで動かして学ぶための学習用アプリです。本番環境での運用は想定しておらず、本番向けの設定 (`config/environments/production.rb` や `config/database.yml` の production) は Rails の雛形のままで、動作確認もしていません。
+Rails 8.1 で作った最小限の Todo アプリ。ローカルで動かして学ぶための学習用です。
 
 ![画面の操作](demo.gif)
 
