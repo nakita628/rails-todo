@@ -1,0 +1,49 @@
+// データベースの唯一の定義。変更したら `pnpm db:push` を実行する。
+// hekireki が app/models/ に Active Record モデルを、config/locales/models/todo/{ja,en}.yml に
+// モデル名・項目名・エラーメッセージの翻訳を書き出す (どちらも生成物なので編集しない)。
+//
+// `/// @ar.` はモデルに入る Rails のバリデーション、`/// @ar.name` は名前の翻訳で、どちらも 1 行に書く。
+// 翻訳は Rails i18n ガイドのキー (activerecord.models / attributes / errors.models...) に書き出される
+// (https://guides.rubyonrails.org/i18n.html#translations-for-active-record-models)。
+// それ以外の `///` はこのスキーマの中だけの説明で、モデルや ER 図には入らない。
+
+datasource db {
+  provider = "sqlite"
+}
+
+generator Hekireki-ActiveRecord {
+  provider = "hekireki-activerecord"
+  output   = "../app/models"
+  // 翻訳の出力先 (output からの相対パス)。この下の models/<モデル>/<言語>.yml に書き出す
+  locales  = "../../config/locales"
+}
+
+// ER 図 (プロジェクトルートの er.png)。output は schema.prisma からの相対パス。
+generator Hekireki-ER {
+  provider = "hekireki-er"
+  output   = "../er.png"
+}
+
+/// やること (Todo) 1 件。
+///
+/// 一覧はトップページ (`/`) に新しい順で表示する。
+/// @ar.name(ja: "やること", en: "Todo")
+/// @ar.normalizes :title, with: ->(title) { title.strip }
+model Todo {
+  /// ID。cuid2 で、Rails 側でも保存前に採番する。
+  id        String   @id @default(cuid(2))
+  /// やることの内容。必須で、140 文字以内。
+  /// @ar.name(ja: "タイトル", en: "Title")
+  /// @ar.presence(message: { ja: "を入力してください", en: "can't be blank" })
+  /// @ar.length(maximum: 140, too_long: { ja: "は%{count}文字以内で入力してください", en: { one: "is too long (maximum is 1 character)", other: "is too long (maximum is %{count} characters)" } })
+  title     String
+  /// 完了したかどうか。作成時は未完了。
+  /// @ar.name(ja: "完了", en: "Completed")
+  completed Boolean  @default(false)
+  /// 作成日時。Rails が保存時に設定する。
+  createdAt DateTime @default(now()) @map("created_at")
+  /// 更新日時。Rails が保存のたびに更新する。
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("todos")
+}

@@ -1,0 +1,16 @@
+<%# 一覧画面 (トップページ)。上に追加フォーム、下に Todo を新しい順で並べる。 %>
+<% content_for :title, t(".title") %>
+
+<h1 class="mb-6 text-2xl font-bold"><%= t(".title") %></h1>
+
+<%= render "form", todo: @todo %>
+
+<% if @todos.any? %>
+  <ul id="todos" class="mt-6 divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white dark:divide-gray-800 dark:border-gray-800 dark:bg-gray-900">
+    <%= render @todos %>
+  </ul>
+  <%# 件数に合わせて単数・複数を I18n が選ぶ (英語の one / other) %>
+  <p id="remaining" class="mt-2 text-right text-sm text-gray-500"><%= t(".remaining", count: @todos.reject(&:completed?).size) %></p>
+<% else %>
+  <p class="mt-6 text-center text-sm text-gray-500"><%= t(".empty") %></p>
+<% end %>

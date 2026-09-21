@@ -1,0 +1,24 @@
+# Todo の画面 (app/views/todos/) とコントローラ (TodosController) の文言 (日本語)。
+# ビューの t(".title") やコントローラの t(".notice") は、todos.<アクション>.<キー> を探す。
+ja:
+  todos:
+    index:
+      title: "やること"
+      empty: "やることはありません。"
+      remaining: "残り %{count} 件"
+    form:
+      placeholder: "やることを入力"
+    edit:
+      title: "やることを編集"
+      back: "一覧に戻る"
+    todo:
+      done: "完了"
+      undo: "戻す"
+      edit: "編集"
+      delete: "削除"
+    create:
+      notice: "やることを追加しました。"
+    update:
+      notice: "やることを更新しました。"
+    destroy:
+      notice: "やることを削除しました。"

@@ -1,0 +1,30 @@
+<%#
+  Todo の追加・編集フォーム。
+
+  locals:
+    todo - フォームの対象。新規なら Todo.new、編集なら保存済みの Todo。
+           保存済みのときだけ「完了」のチェックボックスを出す。
+%>
+<%= form_with model: todo, class: "flex flex-wrap items-center gap-2" do |form| %>
+  <% if todo.errors.any? %>
+    <div class="w-full rounded-md bg-red-50 px-4 py-2 text-sm text-red-700 dark:bg-red-950 dark:text-red-200" role="alert">
+      <ul>
+        <% todo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.label :title, class: "sr-only" %>
+  <%= form.text_field :title, placeholder: t(".placeholder"), required: true, maxlength: todo_title_maxlength, autofocus: true,
+        class: "min-w-0 flex-1 rounded-md border border-gray-300 bg-white px-3 py-2 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 focus:outline-none dark:border-gray-700 dark:bg-gray-900" %>
+
+  <% if todo.persisted? %>
+    <%= form.label :completed, class: "flex items-center gap-2 text-sm" do %>
+      <%= form.check_box :completed, class: "size-4 accent-indigo-600" %> <%= Todo.human_attribute_name(:completed) %>
+    <% end %>
+  <% end %>
+
+  <%= form.submit class: "cursor-pointer rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500" %>
+<% end %>

@@ -1,0 +1,8 @@
+[tools]
+ruby = "3.4.10"
+
+# The devcontainer sets a single GEM_HOME for all Rubies, which makes native
+# extensions built for one version blow up under another. Keep them apart.
+[env]
+GEM_HOME = "{{env.HOME}}/.gem/ruby-3.4.10"
+_.path = ["{{env.HOME}}/.gem/ruby-3.4.10/bin"]

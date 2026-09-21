@@ -1,0 +1,12 @@
+# テスト用の Todo。テストからは todos(:buy_milk) のようにラベルで参照する。
+# ID (cuid2) は書かない。fixtures がラベルから決まった値を割り当てる。
+
+# 未完了の Todo
+buy_milk:
+  title: 牛乳を買う
+  completed: false
+
+# 完了済みの Todo
+write_report:
+  title: レポートを書く
+  completed: true

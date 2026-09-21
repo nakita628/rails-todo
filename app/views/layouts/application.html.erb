@@ -1,0 +1,36 @@
+<%# 全ページ共通のレイアウト。フラッシュメッセージ (notice) もここで表示する。 %>
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <title><%= content_for(:title) || "rails-todo" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# 同じページへ戻るリダイレクト (追加・完了切り替え・削除) では、変わった要素だけを DOM に反映し、スクロール位置も保つ %>
+    <%= turbo_refresh_method_tag :morph %>
+    <%= turbo_refresh_scroll_tag :preserve %>
+
+    <%# app/assets/tailwind/application.css からビルドした app/assets/builds/tailwind.css を読み込む %>
+    <%= stylesheet_link_tag :app %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-50 text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
+    <main class="mx-auto max-w-xl px-4 py-10">
+      <%# 言語の切り替え。表示中の言語はリンクにしない %>
+      <nav class="mb-4 flex justify-end gap-3 text-sm">
+        <% I18n.available_locales.each do |locale| %>
+          <%= link_to_unless locale == I18n.locale, t("language", locale:), root_path(locale:),
+                class: "text-indigo-600 hover:underline dark:text-indigo-400" %>
+        <% end %>
+      </nav>
+      <% if notice %>
+        <p class="mb-4 rounded-md bg-green-50 px-4 py-2 text-sm text-green-800 dark:bg-green-950 dark:text-green-200"><%= notice %></p>
+      <% end %>
+      <%= yield %>
+    </main>
+  </body>
+</html>
